@@ -76,6 +76,7 @@
                     @endauth
                 </div>
             @endif
+            Welcome
         </div>
     </body>
 </html>
