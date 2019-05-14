@@ -2,7 +2,7 @@
 
 namespace App\Components;
 
-class Laraquery
+class QueryComponent
 {
 	public static function select($array){
 
