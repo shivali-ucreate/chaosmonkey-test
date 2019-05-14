@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Tests\ParentTestClass;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Components\QueryComponent as QueryComponent;
+use App\Components\QueryComponent;
 
 class ChaosMonkey extends TestCase
 {
