@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Validator;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name','last_name', 'email', 'password',
     ];
 
     /**
@@ -26,4 +26,40 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $errors;
+
+    public static function validate($data)
+    {
+        $validator = Validator::make($data, [
+	    'email' => 'email|required',
+	    'first_name'=>'unique:users',
+	    'password'=>'required|max:8|min:6'
+
+    	]);
+        if ($validator->fails())
+        {
+           return $validator->errors()->toArray();
+        }
+        return true;
+    }
+
+    public static function saveUserData($user_data)
+    {
+        $user =  static::create($user_data);
+        return $user->id;
+    }
+    public static function selectUser($user)
+    {
+        return static::where('first_name',$user);
+    }
+    public static function allUser()
+    {
+        return static::get()->toArray();
+    }
+    public static function countUser()
+    {
+        return static::count();
+    }
+    
 }

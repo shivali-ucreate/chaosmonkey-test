@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Components\QueryComponent;
 
-class ChaosMonkey extends TestCase
+class ChaosMonkeyTest extends TestCase
 {
     /**
      * A basic test example.

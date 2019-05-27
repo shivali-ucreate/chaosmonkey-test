@@ -1,9 +1,11 @@
 <?php
 $url      = parse_url(getenv("DATABASE_URL"));
+$testing_url      = parse_url(getenv("TESTING_DATABASE_URL"));
 $host     = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $database = substr($url["path"], 1);
+$testing_database = substr($testing_url["path"], 1);
 
 $redisurl      = parse_url(getenv("REDIS_URL"));
 $redishost     = $redisurl["host"];
@@ -20,6 +22,16 @@ return [
             'driver'   => 'pgsql',
             'host'     => env('DB_HOST', $host),
             'database' => env('DB_DATABASE', $database),
+            'username' => env('DB_USERNAME', $username),
+            'password' => env('DB_PASSWORD', $password),
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+        ],
+        'testing'=>[
+            'driver'   => 'pgsql',
+            'host'     => env('DB_HOST', $host),
+            'database' => env('DB_DATABASE', $testing_database),
             'username' => env('DB_USERNAME', $username),
             'password' => env('DB_PASSWORD', $password),
             'charset'  => 'utf8',
