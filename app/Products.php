@@ -12,6 +12,7 @@ class Products extends Model
 
     public static function saveProductData($product_data)
     {
-        return  static::create($product_data);
+        $product =  static::create($product_data);
+        return $product->id;
     }
 }

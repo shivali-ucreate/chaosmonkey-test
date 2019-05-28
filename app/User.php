@@ -34,7 +34,8 @@ class User extends Authenticatable
         $validator = Validator::make($data, [
 	    'email' => 'email|required',
 	    'first_name'=>'unique:users',
-	    'password'=>'required|max:8|min:6'
+	    'password'=>'required|max:8|min:6',
+	    'url' => 'required|url'
 
     	]);
         if ($validator->fails())

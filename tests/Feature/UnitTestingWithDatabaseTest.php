@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Components\QueryComponent;
 use App\User;
 use App\Products;
+use App\UserProductOrder;
 use App\Http\Controllers\UserController;
 class UnitTestingWithDatabaseTest extends TestCase
 {
@@ -83,20 +84,51 @@ class UnitTestingWithDatabaseTest extends TestCase
         'product_name'=>'tsunami'
         ];
         $this->assertArrayHasKey('product_name', $product);
-        $save_user = Products::saveProductData($product);
+        $save_product = Products::saveProductData($product);
+        $this->assertTrue(True);
+        return $save_product;
+    }
+    /**************Create a test to see if we can have it's dependency on 2 tests.***************/
+     /**
+     * @depends testUserSave
+     * @depends testProductSave
+     */
+     public function testProductOrder($save_user,$save_product){
+        $order = ['user_id'=>$save_user,
+        'product_id'=>$save_product,
+        'quantity'=>20
+        ];
+        $this->assertEquals('12',$save_user);
+        $this->assertEquals('1',$save_product);
+        $save_order = UserProductOrder::saveUserProductOrder($order);
         $this->assertTrue(True);
     }
+    
+  /*******Create a test to validate url with regular expression.******/
+    /**
+     * @dataProvider provider
+     */
 
- /****Create a test that have assertCount($count, $array) assertion in it.****/
+    public function testCheckUrl($url,$regex,$expected)
+    {
+        $this->assertEquals($expected,preg_match($regex, $url));
+        
+    }
+
+    public function provider()
+    {
+    	 $regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
+         return [
+            ['https://www.google.com', $regex, true],
+            ['https://gggg', $regex, false],
+            ['https://google??gghg', $regex, false]
+        ];
+    }
+
+   /****Create a test that have assertCount($count, $array) assertion in it.****/
     public function testCount(){
         $user_array = User::allUser();
         $user_count = User::countUser();
-        $this->assertNotEmpty($user_count,$user_array);
+        $this->assertCount($user_count,$user_array);
     }
-
-     /*public function testException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-    }*/
-
 }
