@@ -124,11 +124,52 @@ class UnitTestingWithDatabaseTest extends TestCase
             ['https://google??gghg', $regex, false]
         ];
     }
+    /********Create a test which runs the code that throws the exception so as to use @expectedException*******/
+     /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionIsExpected(){
+        $user = factory(User::class)->create(['manu']);
+        $this->assertArrayHasKey('first_name', $user);
+    }
 
-   /****Create a test that have assertCount($count, $array) assertion in it.****/
+    
+
+    /*******Create a test to check if @dataProvider amd @depends annotation can work together in a test.******/
+
+    public function testCheckProvider(){
+        $this->assertTrue(true);
+        return 100;
+    }
+
+    /**
+     * @depends testCheckProvider
+     * @dataProvider numberProvider
+     */
+
+    public function testDependWithProvider($first,$second,$result,$number)
+    {
+    	$a = ($first+$second) < $number;
+        $this->assertEquals($result,$a);
+        
+    }
+
+    public function numberProvider()
+    {
+    	 
+         return [
+            [1,1,2],
+            [1,2,3],
+            [1,3,4]
+        ];
+    }
+
+    /****Create a test that have assertCount($count, $array) assertion in it.****/
     public function testCount(){
         $user_array = User::allUser();
         $user_count = User::countUser();
         $this->assertCount($user_count,$user_array);
     }
+
+    
 }
