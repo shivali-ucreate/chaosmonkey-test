@@ -6,24 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use Redirect;
+use App\User;
+
 class UserController extends Controller
 {
-    public static function userCreate($array){
-    	$form_data = $array;
-            if (isset($form_data['email']) && !empty($form_data['email'])) {
-                $form_data['email'] = strtolower($form_data['email']);
-            }
-        $messages = [
-        'email.email' => 'Email format is incorrect!',
-        'email.required' => 'Please enter your email address',
-        'password.required' => 'Please enter your password'
-      ];
-        $validator= Validator::make($form_data, [
-        'email' => 'email|required',
-        'password' => 'Required'
-      ], $messages);
-            if ($validator->fails()) {
-            return false;
-        }
+    public function register()
+    {
+        return view('register');
+        return 200;
+    }
+    public function registerUser(Request $request)
+    {
+        $user_data = $request->all();
+        $result = User::validateWithFeatureTest($user_data);
+        return $result;
     }
 }
