@@ -24,7 +24,7 @@ class FeatureTestingTest extends TestCase
         $this->user_data = [
             'first_name' => 'tanav',
             'last_name'=>'sharma',
-            'email' => 'shivalisharma12@ucreate.co.in',
+            'email' => 'shivali15@ucreate.co.in',
             'password'=>'test123',
             'confirm_password' => 'test123'
         ];
@@ -44,25 +44,36 @@ class FeatureTestingTest extends TestCase
         $response->assertSee("Register");
         $response->assertStatus(200);
     }
-
-    public function testUniqueEmail()
+    
+    public function testCreateUserEmailError()
     {
-        $this->user_data['email'] = 'shivali@ucreate.co.in';
+        $this->user_data['email']='abc';
         $data = $this->post('/register_user', $this->user_data);
-        $data->assertStatus(400);
+        $data->assertRedirect('/register');
+        $data->assertSessionHasErrors('email');
     }
 
-    public function testConfirmPassword()
+    public function testCreateUserPasswordError()
     {
-        $this->user_data['confirm_password'] = 'test9999';
+        $this->user_data['password']='abc';
         $data = $this->post('/register_user', $this->user_data);
-        $data->assertStatus(400);
+        $data->assertRedirect('/register');
+        $data->assertSessionHasErrors('password');
+    }
+
+    public function testCreateUserConfirmPasswordError()
+    {
+        $this->user_data['confirm_password']='abc';
+        $data = $this->post('/register_user', $this->user_data);
+        $data->assertRedirect('/register');
+        $data->assertSessionHasErrors('confirm_password');
     }
 
     public function testCreateUser()
     {
         $data = $this->post('/register_user', $this->user_data);
-        $data->assertSee("success");
-        $data->assertStatus(200);
+        $this->assertTrue(true);
     }
+
+    
 }

@@ -67,28 +67,4 @@ class User extends Authenticatable
     {
         return static::create($user_data);
     }
-
-    public static function validateWithFeatureTest($data)
-    {
-        $messages = [
-        'email.email' => 'Email format is incorrect!',
-        'email.required' => 'Please enter your email address',
-        'email.unique'=>'Email address has already been used to register. Please use another email address',
-        'password.required' => 'Please enter your password',
-        'password.max' => 'password should not be greater than 8 characters',
-        'password.min' => 'password should not be less than 6 characters',
-        'confirm_password.required' => 'Please confirm your password',
-        'confirm_password.same'=>'Confirm password should be same as password'
-      ];
-        $validator = Validator::make($data, [
-        'email' => 'email|required|unique:users,email',
-        'first_name'=>'unique:users',
-        'password'=>'required|max:8|min:6',
-        'confirm_password'=>'required|same:password'
-        ], $messages);
-        if ($validator->fails()) {
-            return response()->json(['success'=>false], 400);
-        }
-        return response()->json(['success'=>true], 200);
-    }
 }
