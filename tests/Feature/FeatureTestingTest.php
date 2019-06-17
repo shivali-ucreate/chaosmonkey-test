@@ -49,8 +49,9 @@ class FeatureTestingTest extends TestCase
     {
         $this->user_data['email']='abc';
         $data = $this->post('/register_user', $this->user_data);
-        $data->assertRedirect('/register');
         $data->assertSessionHasErrors('email');
+        $data->assertRedirect('/register');
+        
     }
 
     public function testCreateUserPasswordError()

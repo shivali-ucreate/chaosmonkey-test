@@ -34,7 +34,7 @@ class UserController extends Controller
         'confirm_password'=>'required|same:password'
         ], $messages);
         if ($validator->fails()) {
-            return redirect()->route('register')->withErrors($validator->errors())->withInput();
+            return redirect()->route('/register')->withErrors($validator->errors())->withInput();
         }
         $user = User::saveUser($user_data);
         return $user; 
