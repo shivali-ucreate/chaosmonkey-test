@@ -41,4 +41,27 @@ class UserController extends Controller
         return $user; 
         
     }
+
+    public function login()
+    {
+        return view('login');
+    }
+
+    public function loginUser(Request $request)
+    {
+        $user_data = $request->all();
+         $messages = [
+        'email.email' => 'Email format is incorrect!',
+        'email.required' => 'Please enter your email address',
+        'password.required' => 'Please enter your password'
+      ];
+        $validator = Validator::make($user_data, [
+        'email' => 'email|required',
+        'password'=>'required'
+        ], $messages);
+        if ($validator->fails()) {
+            return redirect('/login')->withErrors($validator->errors())->withInput();
+        } 
+        
+    }
 }

@@ -10,7 +10,7 @@ use App\Components\QueryComponent;
 use App\User;
 use App\Http\Controllers\UserController;
 
-class FeatureTestingTest extends TestCase
+class FeatureRegisterTest extends TestCase
 {
     /**
      * A basic test example.
