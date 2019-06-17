@@ -20,6 +20,7 @@ class UserController extends Controller
          $messages = [
         'email.email' => 'Email format is incorrect!',
         'email.required' => 'Please enter your email address',
+        'first_name.required'=>'Please enter your name',
         'email.unique'=>'Email address has already been used to register. Please use another email address',
         'password.required' => 'Please enter your password',
         'password.max' => 'password should not be greater than 8 characters',
@@ -29,7 +30,7 @@ class UserController extends Controller
       ];
         $validator = Validator::make($user_data, [
         'email' => 'email|required|unique:users,email',
-        'first_name'=>'unique:users',
+        'first_name'=>'unique:users|required',
         'password'=>'required|max:8|min:6',
         'confirm_password'=>'required|same:password'
         ], $messages);
