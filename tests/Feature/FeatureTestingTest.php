@@ -23,7 +23,7 @@ class FeatureTestingTest extends TestCase
         exec('php artisan migrate:refresh');
         exec('php artisan db:seed');
     }
-    
+
     public function setUp(): void
     {
         parent::setUp();
@@ -55,8 +55,8 @@ class FeatureTestingTest extends TestCase
     {
         $this->user_data['email']='abc';
         $data = $this->post('/register_user', $this->user_data);
-        $data->assertSessionHasErrors('email');
         $data->assertRedirect('/register');
+        $data->assertSessionHasErrors('email');
     }
 
     public function testCreateUserPasswordError()
@@ -80,4 +80,6 @@ class FeatureTestingTest extends TestCase
         $data = $this->post('/register_user', $this->user_data);
         $this->assertTrue(true);
     }
+
+    
 }
