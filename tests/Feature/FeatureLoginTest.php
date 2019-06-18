@@ -53,11 +53,30 @@ class FeatureLoginTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testDoLoginWithAuth()
+    {
+        $user = factory(User::class)->create([
+            'id' => random_int(1, 100),
+            'password' => bcrypt($password = 'hello'),
+        ]);
+        
+        $response = $this->post('/login_user', [
+            'email' => $user->email,
+            'password' => $password,
+            'remember' => 'on',
+        ]);
+        
+        $response->assertRedirect('/home');
+        $this->assertAuthenticatedAs($user);
+    }
+
     public function testDoLoginWithWrongEmail()
     {
         $this->login_data['email']='abc';
         $data = $this->post('/login_user', $this->login_data);
         $data->assertRedirect('/login');
+        $data->assertSessionHasErrors('email');
+        $this->assertGuest();
     }
 
     public function testDoLoginWithoutPassword()
@@ -65,6 +84,8 @@ class FeatureLoginTest extends TestCase
         $this->login_data['password']='';
         $data = $this->post('/login_user', $this->login_data);
         $data->assertRedirect('/login');
+        $data->assertSessionHasErrors('password');
+        $this->assertGuest();
     }
 
     public function testDoLogin()
@@ -72,6 +93,8 @@ class FeatureLoginTest extends TestCase
         $data = $this->post('/login_user', $this->login_data);
         $data->assertRedirect('/home');
     }
+
+    
 
     public function testDoLogout()
     {
