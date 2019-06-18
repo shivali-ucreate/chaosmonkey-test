@@ -59,8 +59,8 @@ class UnitTestingWithDatabaseTest extends TestCase
         ];
         $this->assertArrayHasKey('email', $user);
         $result = User::validate($user);
-        $save_user = User::saveUserData($user);
-        return $save_user;
+        $save_user = User::saveUser($user);
+        return $save_user->id;
     }
     /*******************Similar to the task 2, more validation need to be added like name to be unique, password should be minumum 6 and maximum 8 characters.**************/
     public function testUserNameAndPassword()

@@ -45,20 +45,17 @@ class User extends Authenticatable
         return true;
     }
 
-    public static function saveUserData($user_data)
+    public static function selectUser($column_name, $user)
     {
-        $user =  static::create($user_data);
+        $user = static::where($column_name, $user)->first();
         return $user->id;
     }
-    public static function selectUser($column_name,$user)
-    {
-        $user = static::where($column_name,$user)->first();
-        return $user->id; 
-    }
+
     public static function allUser()
     {
         return static::get()->toArray();
     }
+    
     public static function countUser()
     {
         return static::count();
