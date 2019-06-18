@@ -17,7 +17,7 @@ class UserController extends Controller
     public function registerUser(Request $request)
     {
         $user_data = $request->all();
-         $messages = [
+        $messages = [
         'email.email' => 'Email format is incorrect!',
         'email.required' => 'Please enter your email address',
         'first_name.required'=>'Please enter your name',
@@ -38,8 +38,7 @@ class UserController extends Controller
             return redirect('/register')->withErrors($validator->errors())->withInput();
         }
         $user = User::saveUser($user_data);
-        return $user; 
-        
+        return $user;
     }
 
     public function login()
@@ -50,7 +49,7 @@ class UserController extends Controller
     public function loginUser(Request $request)
     {
         $user_data = $request->all();
-         $messages = [
+        $messages = [
         'email.email' => 'Email format is incorrect!',
         'email.required' => 'Please enter your email address',
         'password.required' => 'Please enter your password'
@@ -61,7 +60,6 @@ class UserController extends Controller
         ], $messages);
         if ($validator->fails()) {
             return redirect('/login')->withErrors($validator->errors())->withInput();
-        } 
-        
+        }
     }
 }

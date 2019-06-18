@@ -28,11 +28,8 @@ class FeatureLoginTest extends TestCase
     {
         parent::setUp();
         $this->user_data = [
-            'first_name' => 'tanav',
-            'last_name'=>'sharma',
-            'email' => 'shivali15@ucreate.co.in',
-            'password'=>'test123',
-            'confirm_password' => 'test123'
+            'email' => 'shivali@ucreate.co.in',
+            'password'=>'admin123'
         ];
     }
 
