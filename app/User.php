@@ -50,9 +50,10 @@ class User extends Authenticatable
         $user =  static::create($user_data);
         return $user->id;
     }
-    public static function selectUser($user)
+    public static function selectUser($column_name,$user)
     {
-        return static::where('first_name', $user);
+        $user = static::where($column_name,$user)->first();
+        return $user->id; 
     }
     public static function allUser()
     {

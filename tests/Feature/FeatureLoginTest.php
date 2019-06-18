@@ -17,7 +17,6 @@ class FeatureLoginTest extends TestCase
      *
      * @return void
      */
-
     public static function setUpBeforeClass()
     {
         exec('php artisan migrate:refresh');
@@ -28,9 +27,23 @@ class FeatureLoginTest extends TestCase
     {
         parent::setUp();
         $this->user_data = [
-            'email' => 'shivali@ucreate.co.in',
-            'password'=>'admin123'
+            'first_name' => 'sh',
+            'last_name'=>'sharma',
+            'email' => 'shivali12@ucreate.co.in',
+            'password'=>'test123',
+            'confirm_password' => 'test123'
         ];
+
+        $this->login_data = [
+            'email' => 'shivali12@ucreate.co.in',
+            'password'=>'test123'
+        ];
+    }
+
+    public function testCreateUser()
+    {
+        $data = $this->post('/register_user', $this->user_data);
+        $this->assertTrue(true);
     }
 
     public function testLogin()
@@ -38,6 +51,32 @@ class FeatureLoginTest extends TestCase
         $response = $this->get('/login');
         $response->assertSee("login here");
         $response->assertStatus(200);
+    }
+
+    public function testDoLoginWithWrongEmail()
+    {
+        $this->login_data['email']='abc';
+        $data = $this->post('/login_user', $this->login_data);
+        $data->assertRedirect('/login');
+    }
+
+    public function testDoLoginWithoutPassword()
+    {
+        $this->login_data['password']='';
+        $data = $this->post('/login_user', $this->login_data);
+        $data->assertRedirect('/login');
+    }
+
+    public function testDoLogin()
+    {
+        $data = $this->post('/login_user', $this->login_data);
+        $data->assertRedirect('/home');
+    }
+
+    public function testDoLogout()
+    {
+        $data = $this->get('/logout');
+        $data->assertRedirect('/login');
     }
     
 }

@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Validator;
 use Redirect;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -60,6 +61,18 @@ class UserController extends Controller
         ], $messages);
         if ($validator->fails()) {
             return redirect('/login')->withErrors($validator->errors())->withInput();
+        } else {
+            $user = User::selectUser('email', $user_data['email']);
+
+            if (Auth::loginUsingId($user)) {
+                return redirect('/home');
+            }
         }
+    }
+
+    public function doLogout()
+    {
+        Auth::logout();
+        return Redirect::to('login');
     }
 }
