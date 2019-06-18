@@ -60,11 +60,11 @@ class FeatureLoginTest extends TestCase
             'password' => bcrypt($password = 'hello'),
         ]);
         
-        $response = $this->post('/login_user', [
+        $response = $this->actingAs($user)->post('/login_user', [
             'email' => $user->email,
             'password' => $password,
             'remember' => 'on',
-        ]);
+            ]);
         
         $response->assertRedirect('/home');
         $this->assertAuthenticatedAs($user);
