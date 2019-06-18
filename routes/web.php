@@ -23,4 +23,4 @@ Route::get('/register', 'UserController@register')->name('register');
 Route::post('/register_user', 'UserController@registerUser');
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login_user', 'UserController@loginUser');
-Route::get('/logout','UserController@doLogout');
+Route::get('/logout', 'UserController@doLogout');

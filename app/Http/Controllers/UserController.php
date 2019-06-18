@@ -28,7 +28,7 @@ class UserController extends Controller
         'password.min' => 'password should not be less than 6 characters',
         'confirm_password.required' => 'Please confirm your password',
         'confirm_password.same'=>'Confirm password should be same as password'
-      ];
+        ];
         $validator = Validator::make($user_data, [
         'email' => 'email|required|unique:users,email',
         'first_name'=>'unique:users|required',
@@ -51,10 +51,10 @@ class UserController extends Controller
     {
         $user_data = $request->all();
         $messages = [
-        'email.email' => 'Email format is incorrect!',
-        'email.required' => 'Please enter your email address',
-        'password.required' => 'Please enter your password'
-      ];
+            'email.email' => 'Email format is incorrect!',
+            'email.required' => 'Please enter your email address',
+            'password.required' => 'Please enter your password'
+        ];
         $validator = Validator::make($user_data, [
         'email' => 'email|required',
         'password'=>'required'

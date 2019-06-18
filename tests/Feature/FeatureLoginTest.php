@@ -78,5 +78,4 @@ class FeatureLoginTest extends TestCase
         $data = $this->get('/logout');
         $data->assertRedirect('/login');
     }
-    
 }

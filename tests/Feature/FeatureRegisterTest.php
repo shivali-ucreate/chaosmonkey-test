@@ -88,6 +88,4 @@ class FeatureRegisterTest extends TestCase
         $data = $this->post('/register_user', $this->user_data);
         $this->assertTrue(true);
     }
-
-    
 }
