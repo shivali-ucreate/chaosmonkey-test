@@ -42,7 +42,7 @@ class UnitTestingWithDatabaseTest extends TestCase
         $user = ['first_name'=>'shivali',
         'last_name'=>'sharma',
         'email'=>'shivali@ucreate',
-        'password'=>'admin1234'
+        'password'=>'admin123'
         ];
         $this->assertArrayHasKey('email', $user);
         $result = User::validate($user);
