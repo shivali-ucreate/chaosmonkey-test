@@ -28,7 +28,7 @@ class FeatureRegisterTest extends TestCase
     {
         parent::setUp();
         $this->user_data = [
-            'first_name' => 'tanav',
+            'first_name' => 'garima',
             'last_name'=>'sharma',
             'email' => 'shivali15@ucreate.co.in',
             'password'=>'test123',
